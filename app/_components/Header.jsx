@@ -1,5 +1,5 @@
-"use client"
- 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";

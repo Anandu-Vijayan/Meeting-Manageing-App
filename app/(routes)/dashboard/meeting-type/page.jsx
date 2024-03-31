@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function MeetingType() {
-  return (
-    <div>MeetingType</div>
-  )
+  return <div>MeetingType</div>;
 }
 
-export default MeetingType
+export default MeetingType;

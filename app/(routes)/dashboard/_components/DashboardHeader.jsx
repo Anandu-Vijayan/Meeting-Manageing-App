@@ -1,5 +1,8 @@
 "use client";
-import { LogoutLink, useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import {
+  LogoutLink,
+  useKindeBrowserClient,
+} from "@kinde-oss/kinde-auth-nextjs";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import React from "react";

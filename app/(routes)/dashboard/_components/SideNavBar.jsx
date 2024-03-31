@@ -36,7 +36,7 @@ function SideNavBar() {
   const path = usePathname();
   const [activePath, setActivePath] = useState(path);
   useEffect(() => {
-    path&&setActivePath(path);
+    path && setActivePath(path);
   }, [path]);
   return (
     <div className="p-5 py-14">

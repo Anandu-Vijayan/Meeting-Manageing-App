@@ -44,9 +44,11 @@ function SideNavBar() {
         <Image src="/log.svg" width={150} height={150} alt="logo" />
       </div>
       <div>
-        <Button className="flex gap-2 w-full rounded-full mt-7">
-          <Plus /> Create
-        </Button>
+        <Link href={"/create-meeting"}>
+          <Button className="flex gap-2 w-full rounded-full mt-7">
+            <Plus /> Create
+          </Button>
+        </Link>
         <div className="mt-5 flex flex-col gap-5">
           {menu.map((item, index) => (
             <Link href={item.path} key={index}>

@@ -12,7 +12,10 @@ function DashboardLayout({ children }) {
       </div>
       <div className="md:ml-64">
         <DashboardHeader />
-        <Dashboard/>
+        <div> 
+          {children}
+        </div>
+        {/* <Dashboard/> */}
         <Toaster/>
       </div>
     </div>

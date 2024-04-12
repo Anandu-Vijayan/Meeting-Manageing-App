@@ -29,12 +29,12 @@ function SideNavBar() {
     {
       id: 4,
       name: "Settings",
-      path: "/dashboard/Settings",
+      path: "/dashboard/settings",
       icon: Settings,
     },
   ];
   const path = usePathname();
-  const [activePath, setActivePath] = useState(path);
+  const [activePath, setActivePath] = useState(path); 
   useEffect(() => {
     path && setActivePath(path);
   }, [path]);

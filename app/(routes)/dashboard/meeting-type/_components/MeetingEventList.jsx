@@ -10,7 +10,8 @@ import {
   getDocs,
   orderBy,
   deleteDoc,
-  doc // Add this import
+  doc,
+  getDoc, // Add this import
 } from "firebase/firestore";
 import { Clock, Copy, MapPin, Pen, Settings, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,10 +29,12 @@ function MeetingEventList() {
   const db = getFirestore(app);
   const { user } = useKindeBrowserClient();
   const [eventList, setEventList] = useState([]);
+  const [businessInfo, setBusinessInfo] = useState();
 
   useEffect(() => {
     if (user) {
       getEventList();
+      BusinessInfo();
     }
   }, [user]);
 
@@ -54,17 +57,33 @@ function MeetingEventList() {
       console.error("Error fetching documents: ", error);
     }
   };
+  const BusinessInfo = async () => {
+    const docRef = doc(db, "Business", user.email);
+    const docSnap = await getDoc(docRef);
+    setBusinessInfo(docSnap.data());
+  };
 
   const onDeleteMeetingEvent = async (event) => {
     try {
       await deleteDoc(doc(db, "MeetingEvent", event?.id));
-      toast('Meeting deleted successfully!');
+      toast("Meeting deleted successfully!");
       getEventList();
     } catch (error) {
-      toast.error('Error deleting meeting:', error);
+      toast.error("Error deleting meeting:", error);
     }
   };
-  
+
+  const onCopyClickHandler = (event) => {
+    const meetingEventUrl =
+      process.env.NEXT_PUBLIC_BASE_URL +
+      "/" +
+      businessInfo.businessName +
+      "/" +
+      event.id;
+    navigator.clipboard.writeText(meetingEventUrl);
+    toast("Url copied to Clipboard");
+  };
+
   return (
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
       {eventList.length > 0 ? (
@@ -84,7 +103,10 @@ function MeetingEventList() {
                     <Pen />
                     Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="flex gap-2" onClick={()=>onDeleteMeetingEvent(event)}>
+                  <DropdownMenuItem
+                    className="flex gap-2"
+                    onClick={() => onDeleteMeetingEvent(event)}
+                  >
                     <Trash />
                     Delete
                   </DropdownMenuItem>
@@ -107,8 +129,7 @@ function MeetingEventList() {
               <h2
                 className="flex gap-3 text-sm items-center text-primary mt-2 cursor-pointer"
                 onClick={() => {
-                  navigator.clipboard.writeText(event.locationUrl);
-                  toast("Url copied to Clipboard");
+                  onCopyClickHandler(event);
                 }}
               >
                 <Copy className="h-4 w-4" />
